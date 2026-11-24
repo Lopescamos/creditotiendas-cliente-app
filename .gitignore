@@ -1,0 +1,22 @@
+# IDE - Android Studio / IntelliJ
+.idea/
+*.iml
+
+# Gradle
+.gradle/
+/build/
+app/build/
+
+# Local config (rutas del SDK, específicas de cada máquina)
+local.properties
+
+# Native build
+.externalNativeBuild/
+.cxx/
+
+# Logs y capturas
+/captures/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
