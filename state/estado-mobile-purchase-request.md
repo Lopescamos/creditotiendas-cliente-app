@@ -59,3 +59,13 @@ Cubierto en `feature/project-setup`:
 - Cada producto: foto, nombre, precio al crédito, botón "Agregar".
 - Mini-carrito flotante con total; botón "Revisar" navega a
   `ReviewRequestScreen`.
+
+### `view/ReviewRequestScreen.kt` (pantalla 3, UF-04 paso 3 + UF-05 parcial)
+- Resumen del carrito con subtotales y total.
+- Botón "Enviar solicitud" → `submit` del VM.
+- Tras éxito: muestra la solicitud en `PENDIENTE` con número
+  trazable; tras rechazo por 422, muestra el mensaje del backend y
+  mantiene el carrito para que el cliente pueda corregir.
+- **US-09 parcial:** vista inmediata del estado — la pantalla
+  dedicada para volver a consultar más tarde sigue pendiente (ver
+  `state/pendientes.md` ítem 2).
