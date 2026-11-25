@@ -69,3 +69,38 @@ Cubierto en `feature/project-setup`:
 - **US-09 parcial:** vista inmediata del estado — la pantalla
   dedicada para volver a consultar más tarde sigue pendiente (ver
   `state/pendientes.md` ítem 2).
+
+## Tests (dejado por el agente tests)
+
+### `app/src/test/.../viewmodel/PurchaseRequestViewModelTest.kt`
+
+Cubre:
+- Estado inicial vacío (eligibility=null, catálogo vacío, carrito
+  vacío, total=0, loading=false).
+- **Regla de negocio no trivial — las 4 condiciones de
+  elegibilidad:** un test por cada condición que, al fallar,
+  bloquea `eligible=false`:
+  - Todas cumplidas → `eligible=true`.
+  - Sin primera compra pagada a tiempo → bloquea.
+  - Con cuotas vencidas impagas → bloquea.
+  - Fuera del límite de crédito disponible → bloquea.
+  (Perfil activo = false → implícito; mismo patrón, no agregamos un
+  test adicional idéntico.)
+- `loadCatalog` filtra productos con `active=false`.
+- `submit` exitoso → carrito limpio, `lastCreated` con estado
+  `PENDING`.
+- `submit` con 422 → mensaje "No cumples los criterios de
+  elegibilidad.", **carrito conservado** (el cliente puede corregir
+  sin volver a armarlo).
+- `submit` con excepción de red → error mostrable, no loading
+  infinito.
+
+**No cubierto:**
+- Test de UI Compose de `EligibilityScreen` que verifique el botón
+  "Continuar" deshabilitado cuando alguna condición falla. La regla
+  queda cubierta por el VM (que es donde decide `eligible`), pero
+  habría cerrado el bucle por el lado de la UI también. Pendiente si
+  el tiempo sobra.
+- Tests de `addToCart`/`updateQty`/`clearCart` como unidades puras —
+  se ejercen indirectamente en el test de `submit` exitoso. No se
+  agregan tests dedicados para mantener el set compacto.
