@@ -52,3 +52,10 @@ Cubierto en `feature/project-setup`:
 - Botón "Continuar" habilitado **solo si las 4 se cumplen** —
   sombrea y deshabilita si alguna falla.
 - Mensaje contextual cuando falta la condición 2 (primera compra).
+
+### `view/RequestCatalogScreen.kt` (pantalla 2, UF-04 paso 2)
+- Carga productos activos del catálogo de la tienda (filtro
+  `active=true` ya aplicado en el VM).
+- Cada producto: foto, nombre, precio al crédito, botón "Agregar".
+- Mini-carrito flotante con total; botón "Revisar" navega a
+  `ReviewRequestScreen`.
