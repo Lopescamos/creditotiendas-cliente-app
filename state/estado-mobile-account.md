@@ -42,3 +42,26 @@ DTOs: `CreditProfileResponse`, `CreditSaleResponse`, `PaymentResponse`.
   "Pagar" (→ `PayScreen`). Navegación real llega con
   `feature/navigation`.
 - Muestra `loading` como spinner y `error` como banner.
+
+## Tests (dejado por el agente tests)
+
+### `app/src/test/.../viewmodel/AccountViewModelTest.kt`
+Inyecta `WebService` mockeado y `Context` mock-null-safe (el VM no
+toca `SharedPreferences`, así que un `Context` mock basta).
+
+Cubre:
+- Estado inicial: todas las listas vacías, sin loading, sin error.
+- `loadProfiles` exitoso con 2 perfiles → auto-selecciona el primero.
+- **Regla de negocio no trivial (multi-perfil):** `selectProfile`
+  cambia el `selectedProfile` sin fusionar saldos — ambos perfiles
+  siguen en la lista con sus montos independientes.
+- Error HTTP 500 → `error` contiene el código, `profiles` vacío,
+  `loading=false`.
+- Excepción de red → `error = "Sin conexión al servidor."`,
+  `loading=false`.
+
+**No cubierto:**
+- Tests de UI Compose de `MyAccountScreen` (selector de perfiles,
+  cards por tienda) — pendiente si el tiempo sobra al final.
+- `loadStatements` se verifica indirectamente por el patrón; no tiene
+  test propio porque reutiliza exactamente la misma estructura.
