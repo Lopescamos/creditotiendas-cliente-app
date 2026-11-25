@@ -42,3 +42,26 @@ Cubierto en `feature/project-setup`:
   orden en que viene del backend, sin recalcular.
 - Tras `confirmPayment` exitoso, muestra confirmación con el número
   de comprobante.
+
+## Tests (dejado por el agente tests)
+
+### `app/src/test/.../viewmodel/PaymentViewModelTest.kt`
+
+Cubre:
+- Estado inicial vacío.
+- `loadDue` exitoso → `due` poblado con el desglose, `loading=false`.
+- **Regla de negocio no trivial (sin monto editable):** `confirmPayment`
+  envía `RegisterPaymentRequest(installmentIds=[...])` — captura el
+  argumento real vía `ArgumentCaptor` y verifica que **el único campo
+  del DTO es `installmentIds`**, no existe un campo de monto. Doble
+  check: inspección reflexiva sobre `RegisterPaymentRequest`.
+- `confirmPayment` con 422 → `error = "El pago no cubre el monto
+  íntegro exigible."`, `result=null`, `loading=false`.
+- `confirmPayment` con excepción de red → `error = "Sin conexión al
+  servidor."`, `loading=false`.
+
+**No cubierto:**
+- Test de UI Compose de `PayScreen` verificando que **no existe un
+  `TextField` de monto** — habría cerrado la regla por ambos lados
+  (dato + UI). Pendiente si el tiempo sobra; hoy la regla queda
+  cubierta por el lado del VM/dato que es donde más fácil se rompe.
