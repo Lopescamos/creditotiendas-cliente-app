@@ -30,3 +30,15 @@ Cubierto en `feature/project-setup`:
 - `reset()` limpia `due`, `result`, `error`.
 - Constructor expone seam `webService: WebService? = null` para
   tests.
+
+## View (dejado por el agente view)
+
+### `view/PayScreen.kt`
+- Muestra el desglose exigible (`CtCard`): capital, interés
+  ordinario, mora — tal cual lo devuelve el backend.
+- **No existe campo de monto editable.** El botón "Confirmar pago
+  íntegro" envía solo los `installmentIds`.
+- Prelación de imputación (mora → interés → capital) se muestra en el
+  orden en que viene del backend, sin recalcular.
+- Tras `confirmPayment` exitoso, muestra confirmación con el número
+  de comprobante.
