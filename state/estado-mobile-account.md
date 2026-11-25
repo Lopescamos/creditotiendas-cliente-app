@@ -29,3 +29,16 @@ DTOs: `CreditProfileResponse`, `CreditSaleResponse`, `PaymentResponse`.
   colateral falla.
 - Constructor expone seam `webService: WebService? = null` para
   inyección en tests, igual que `AuthViewModel`.
+
+## View (dejado por el agente view)
+
+### `view/MyAccountScreen.kt`
+- Landing tras login (UF-02).
+- Tarjeta por perfil (`CtCard`): saldo pendiente, próximo pago
+  (monto, fecha, estado con `CtBadge`), movimientos recientes.
+- Selector de tienda si el cliente tiene más de un perfil — cada
+  tienda se muestra independiente, sin mezclar saldos.
+- Botones de acción: "Ver cuotas" (→ `InstallmentsScreen`),
+  "Pagar" (→ `PayScreen`). Navegación real llega con
+  `feature/navigation`.
+- Muestra `loading` como spinner y `error` como banner.
