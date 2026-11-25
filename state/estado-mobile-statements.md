@@ -22,3 +22,21 @@ Cubierto en `feature/project-setup`:
   (`YYYY-MM`): saldo anterior, compras, pagos, interés, mora, saldo
   final.
 - Pensada como listado histórico, sin acciones.
+
+## Tests (dejado por el agente tests)
+
+### `app/src/test/.../viewmodel/StatementsLoadingTest.kt`
+Como la pantalla no tiene VM propio, el test ejercita
+`AccountViewModel.loadStatements` — la ruta de red que la alimenta.
+
+Cubre:
+- Respuesta 200 con 2 períodos → `statements.value` tiene los
+  elementos esperados, `loading=false`.
+- Excepción de red → `statements` permanece vacío sin bloquear
+  loading (el patrón del VM silencia el error de pagos/estados para
+  no interrumpir la pantalla principal).
+
+**No cubierto:**
+- Test de UI Compose de `StatementsScreen`. La pantalla es un
+  listado thin sobre el `StateFlow`; el valor agregado de tests de
+  UI aquí es bajo.
