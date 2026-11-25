@@ -31,3 +31,13 @@ Cubierto completamente en `feature/project-setup`:
 - Constructor expone un seam `webService: WebService? = null` para
   inyectar un fake en tests. Si no se pasa nada, usa
   `RetrofitClient.create(context)` — el flujo normal no cambia.
+
+## View (dejado por el agente view)
+
+### `view/LoginScreen.kt`
+- Campos de email y contraseña usando `CtTextField` de
+  `view/Components.kt`.
+- Botón "Ingresar" deshabilitado durante `loading`.
+- Muestra el `error` del ViewModel como banner rojo arriba del form.
+- Al `signedIn=true`, navega a la ruta de cuenta (wiring real
+  llegará con `feature/navigation`).
