@@ -33,3 +33,26 @@ pagos del cliente. Duplicar el cliente Retrofit en un
   (`CtBadge`).
 - Botón "¿Qué es el método francés?" → navega a `HelpScreen`
   (UF-07).
+
+## Tests (dejado por el agente tests)
+
+### `app/src/test/.../viewmodel/InstallmentsLoadingTest.kt`
+Como la pantalla no tiene VM propio, los tests ejercitan el flujo de
+`AccountViewModel.loadInstallments(saleId, context)` — la ruta de red
+que alimenta a `InstallmentsScreen`. Se separa en un archivo propio
+con scope `installments` para que la cobertura quede trazable al
+feature.
+
+Cubre:
+- Respuesta 200 con snapshot de 3 cuotas (una `PAID_ON_TIME`, una
+  `PENDING`, una `OVERDUE`) → `installments.value` idéntico al
+  snapshot, `loading=false`.
+- Error HTTP 404 → `error = "No pudimos cargar las cuotas."`,
+  `loading=false`.
+- Excepción de red → `error` mostrable, `loading=false`.
+
+**No cubierto:**
+- Test de UI Compose de `InstallmentsScreen`. La cobertura de VM
+  cubre la lógica de red; el render del cronograma y la navegación a
+  ayuda son thin UI. Se podría agregar con `createComposeRule` si el
+  tiempo sobra.
