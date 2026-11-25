@@ -43,3 +43,12 @@ Cubierto en `feature/project-setup`:
 - `total` derivado de `cart`.
 - Constructor expone seam `webService: WebService? = null` para
   tests.
+
+## View (dejado por el agente view)
+
+### `view/EligibilityScreen.kt` (pantalla 1, UF-04 paso 1)
+- Muestra las 4 condiciones como lista con check/x según
+  `eligibility.value.requirements`.
+- Botón "Continuar" habilitado **solo si las 4 se cumplen** —
+  sombrea y deshabilita si alguna falla.
+- Mensaje contextual cuando falta la condición 2 (primera compra).
